@@ -28,7 +28,7 @@ Valid levels are:
  
 ROLLBACK;
 set transaction name 'gen_trx';
-SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+e
 /* ------------ */
 
 select count(*) from genres;
@@ -42,9 +42,58 @@ select count(*) from genres;
 -- 129
 
 
+/* --------------- */
+ALTER SESSION SET ISOLATION_LEVEL=SERIALIZABLE;   
+select count(*) from genres;
+-- 130
+insert into genres
+VALUES (60,'Bar');
+select count(*) from genres;
+-- 131
+COMMIT;
+select count(*) from genres;
+-- 131
+
+/* --------------- */
+ALTER SESSION SET ISOLATION_LEVEL=READ COMMITTED;   
+select count(*) from genres;
+-- 129
+insert into genres
+VALUES (60,'Bar');
+select count(*) from genres;
+-- 130
+COMMIT;
+select count(*) from genres;
+-- 130
 
 
-ALTER SESSION SET ISOLATION_LEVEL READ COMMITTED;   
+/* --------------- */
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED; 
+select count(*) from genres;
+-- 132
+insert into genres
+VALUES (60,'Bar');
+select count(*) from genres;
+-- 133
+COMMIT;
+select count(*) from genres;
+-- 133
+
+/* --------------- */
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; 
+select count(*) from genres;
+-- 133
+insert into genres
+VALUES (60,'Bar');
+select count(*) from genres;
+-- 134
+COMMIT;
+select count(*) from genres;
+-- 134
+
+
+
+
  
 ALTER SESSION 
 SET ISOLATION LEVEL
