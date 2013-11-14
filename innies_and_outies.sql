@@ -1,3 +1,12 @@
-SELECT *
-from a
-LEFT OUTER JOIN B ON A.column = B.column
+/* inner */
+select *
+from movies
+inner join directors 
+ON movies.film_id = directors.film_id
+
+
+/* outer */
+select *
+from movies
+left outer join directors 
+ON movies.film_id = directors.film_id
